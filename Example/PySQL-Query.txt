@@ -1,0 +1,5 @@
+SELECT t1.userName,t1.businessDepName,t1.departmentName,t1.groupName,t1.tagBusinessDepName,q.* FROM t_software_install q
+inner join p2_pms_user_info t1
+on q.username=t1.casUserId
+and (t1.disabled =0 or t1.disabled is null)
+ where q.softwareinstallname like '%java%'
