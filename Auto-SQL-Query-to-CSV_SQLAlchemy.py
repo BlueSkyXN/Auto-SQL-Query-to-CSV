@@ -1,6 +1,7 @@
 import argparse
 import pandas as pd
 from sqlalchemy import create_engine
+import pymysql
 
 def read_sql_file(path):
     with open(path, 'r') as file:
