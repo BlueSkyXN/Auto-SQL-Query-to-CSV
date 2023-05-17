@@ -16,12 +16,16 @@ def read_db_info_file(path):
         return db_info
 
 def execute_sql(db_info, query):
-    conn = pymysql.connect(host=db_info['host'], 
-                           user=db_info['user'], 
-                           password=db_info['password'], 
-                           db=db_info['database'],
-                           port=int(db_info['port']))
-    return pd.read_sql_query(query, conn)
+    try:
+        conn = pymysql.connect(host=db_info['host'], 
+                               user=db_info['user'], 
+                               password=db_info['password'], 
+                               db=db_info['database'],
+                               port=int(db_info['port']))
+        return pd.read_sql_query(query, conn)
+    except pymysql.Error as e:
+        print("数据库连接错误:", str(e))
+        return None
 
 def write_to_csv(df, path, encoding):
     if encoding.lower() == 'a' or encoding.lower() == 'ansi':
@@ -51,11 +55,10 @@ def main():
     db_info = read_db_info_file(args.db_info_path)
 
     df = execute_sql(db_info, query)
-    write_to_csv(df, args.output_path, encoding)
-
-    # 输出任务信息
-    print("任务已完成！")
-    print("输出文件路径：", args.output_path)
+    if df is not None:
+        write_to_csv(df, args.output_path, encoding)
+        print("任务已完成！")
+        print("输出文件路径：", args.output_path)
 
 if __name__ == "__main__":
     main()
