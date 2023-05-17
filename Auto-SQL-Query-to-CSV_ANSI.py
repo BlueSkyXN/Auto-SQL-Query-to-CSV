@@ -23,39 +23,26 @@ def execute_sql(db_info, query):
                            port=int(db_info['port']))
     return pd.read_sql_query(query, conn)
 
-def write_to_csv(df, path, encoding):
-    if encoding.lower() == 'a' or encoding.lower() == 'ansi':
-        df.to_csv(path, index=False, encoding='ansi')
-        print("输出文件编码：ANSI")
-    elif encoding.lower() == 'u' or encoding.lower() == 'utf8' or encoding.lower() == 'utf-8':
-        df.to_csv(path, index=False, encoding='utf-8')
-        print("输出文件编码：UTF-8")
-    else:
-        print("不支持的编码类型。")
+def write_to_csv(df, path):
+    df.to_csv(path, index=False, encoding='ansi')  # 将编码参数设置为'ansi'
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('sql_path', help='Path to the SQL file.')
     parser.add_argument('db_info_path', help='Path to the file with DB info.')
     parser.add_argument('output_path', help='Path to the output CSV file.')
-    parser.add_argument('-c', '--encoding', default='u', help='CSV file encoding. Default is UTF-8.')
     args = parser.parse_args()
-
-    encoding = args.encoding.lower()
-
-    if encoding not in ['a', 'ansi', 'u', 'utf8', 'utf-8']:
-        print("不支持的编码类型。")
-        return
 
     query = read_sql_file(args.sql_path)
     db_info = read_db_info_file(args.db_info_path)
 
     df = execute_sql(db_info, query)
-    write_to_csv(df, args.output_path, encoding)
+    write_to_csv(df, args.output_path)
 
     # 输出任务信息
-    print("任务已完成！")
     print("输出文件路径：", args.output_path)
+    print("输出文件编码：ANSI")
+
 
 if __name__ == "__main__":
     main()
