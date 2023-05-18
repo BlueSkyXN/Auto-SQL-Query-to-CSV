@@ -19,7 +19,7 @@ Action自动编译/打包后的应用程序在每个Action的单次WorkFlows执�
 - [-q] [--query] 指定查询语句存放的文件的路径位置
 - [-i] [--input] [--info] 指定存放数据库连接信息的文件的路径位置
 - [-o] [--output] 指定输出文件的路径位置，包括文件名
-- [-c] [--encoding] 指定输出文件的编码，可选 ANSI、UTF8/UTF-8；支持首字母A/U并兼容大小写
+- [-c] [--encoding] 指定输出文件的编码，可选 ANSI、UTF8/UTF-8；支持首字母A/U并兼容大小写，默认是UTF8。
 - [-s] 获取输入文件的模板，可不用这个参数
 
 ## 使用参考
@@ -37,3 +37,9 @@ Action自动编译/打包后的应用程序在每个Action的单次WorkFlows执�
 ## 使用参考
 
 ```E:\SQL\UTF8-to-ANSI_CSV.exe -i E:\SQL\PySQL-Q1.txt -o  E:\SQL\PySQL-Q2.txt```
+
+
+# Quick-Query.bat
+本案例基于0.7版本
+
+这是一个通过配置参数实现的快速调用相关程序的Bat脚本，具体需要配置的信息写在bat文件本身里面，可通过记事本等软件编辑。注意，如果涉及中文请小心UTF8和ANSI的文件编码问题。建议在Windows环境下转为ANSI编码的BAT后执行。
