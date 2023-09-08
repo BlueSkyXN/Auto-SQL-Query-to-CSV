@@ -1,21 +1,22 @@
-
 name: Python Building
 
 on:
-   push:
-     branches: [ main ]
-   workflow_dispatch:
+  push:
+    branches: [main]
+  workflow_dispatch:
 
 jobs:
   build-Auto-SQL-Query-to-CSV:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        build: [linux, windows]
+        build: [ubuntu-20.04, ubuntu-22.04, windows-2019]
         include:
-          - build: linux
+          - build: ubuntu-20.04
             os: ubuntu-20.04
-          - build: windows
+          - build: ubuntu-22.04
+            os: ubuntu-22.04
+          - build: windows-2019
             os: windows-2019
     steps:
       - name: Checkout code
@@ -29,7 +30,7 @@ jobs:
       - name: Set commit message
         id: set_commit
         run: |
-          if [ "${{ matrix.os }}" == "ubuntu-20.04" ]; then
+          if [ "${{ matrix.os }}" == "ubuntu-20.04" ] || [ "${{ matrix.os }}" == "ubuntu-22.04" ]; then
             echo "COMMIT_MESSAGE=$(git log --format=%B -1)" >> $GITHUB_ENV
           elif [ "${{ matrix.os }}" == "windows-2019" ]; then
             commit_message=$(git log --format=%B -1)
@@ -45,19 +46,11 @@ jobs:
       - name: Build executable
         run: |
           pyinstaller --onefile --hidden-import argparse --hidden-import pandas --hidden-import os --hidden-import pymysql --strip Auto-SQL-Query-to-CSV.py --distpath dist/${{ matrix.os }}
-      - name: Upload-ubuntu-20.04
-        if: ${{ matrix.os == 'ubuntu-20.04' }}
+      - name: Upload-artifact
         uses: actions/upload-artifact@v3
         with:
           name: build_Auto-SQL-Query-to-CSV_${{ matrix.os }}_v${{ env.COMMIT_MESSAGE }}
-          path: dist/ubuntu-20.04/Auto-SQL-Query-to-CSV
-
-      - name: Upload-windows-2019
-        if: ${{ matrix.os == 'windows-2019' }}
-        uses: actions/upload-artifact@v3
-        with:
-          name: build_Auto-SQL-Query-to-CSV_${{ matrix.os }}_v${{ env.COMMIT_MESSAGE }}
-          path: dist/windows-2019/Auto-SQL-Query-to-CSV.exe
+          path: dist/${{ matrix.os }}/Auto-SQL-Query-to-CSV
 
   build-Auto-SQL-Query-to-CSV_SQLAlchemy:
     runs-on: ${{ matrix.os }}
