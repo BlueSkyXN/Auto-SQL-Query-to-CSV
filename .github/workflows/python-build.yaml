@@ -14,7 +14,7 @@ jobs:
         build: [linux, windows]
         include:
           - build: linux
-            os: ubuntu-22.04
+            os: ubuntu-20.04
           - build: windows
             os: windows-2019
     steps:
@@ -29,7 +29,7 @@ jobs:
       - name: Set commit message
         id: set_commit
         run: |
-          if [ "${{ matrix.os }}" == "ubuntu-22.04" ]; then
+          if [ "${{ matrix.os }}" == "ubuntu-20.04" ]; then
             echo "COMMIT_MESSAGE=$(git log --format=%B -1)" >> $GITHUB_ENV
           elif [ "${{ matrix.os }}" == "windows-2019" ]; then
             commit_message=$(git log --format=%B -1)
@@ -45,12 +45,12 @@ jobs:
       - name: Build executable
         run: |
           pyinstaller --onefile --hidden-import argparse --hidden-import pandas --hidden-import os --hidden-import pymysql --strip Auto-SQL-Query-to-CSV.py --distpath dist/${{ matrix.os }}
-      - name: Upload-ubuntu-22.04
-        if: ${{ matrix.os == 'ubuntu-22.04' }}
+      - name: Upload-ubuntu-20.04
+        if: ${{ matrix.os == 'ubuntu-20.04' }}
         uses: actions/upload-artifact@v3
         with:
           name: build_Auto-SQL-Query-to-CSV_${{ matrix.os }}_v${{ env.COMMIT_MESSAGE }}
-          path: dist/ubuntu-22.04/Auto-SQL-Query-to-CSV
+          path: dist/ubuntu-20.04/Auto-SQL-Query-to-CSV
 
       - name: Upload-windows-2019
         if: ${{ matrix.os == 'windows-2019' }}
@@ -66,7 +66,7 @@ jobs:
         build: [linux, windows]
         include:
           - build: linux
-            os: ubuntu-22.04
+            os: ubuntu-20.04
           - build: windows
             os: windows-2019
     steps:
@@ -81,7 +81,7 @@ jobs:
       - name: Set commit message
         id: set_commit
         run: |
-          if [ "${{ matrix.os }}" == "ubuntu-22.04" ]; then
+          if [ "${{ matrix.os }}" == "ubuntu-20.04" ]; then
             echo "COMMIT_MESSAGE=$(git log --format=%B -1)" >> $GITHUB_ENV
           elif [ "${{ matrix.os }}" == "windows-2019" ]; then
             commit_message=$(git log --format=%B -1)
@@ -98,12 +98,12 @@ jobs:
         run: |
           pyinstaller --onefile --hidden-import argparse --hidden-import pandas --hidden-import sqlalchemy --hidden-import pymysql --strip Auto-SQL-Query-to-CSV_SQLAlchemy.py --distpath dist/${{ matrix.os }}
 
-      - name: Upload-ubuntu-22.04
-        if: ${{ matrix.os == 'ubuntu-22.04' }}
+      - name: Upload-ubuntu-20.04
+        if: ${{ matrix.os == 'ubuntu-20.04' }}
         uses: actions/upload-artifact@v3
         with:
           name: build_Auto-SQL-Query-to-CSV_SQLAlchemy_${{ matrix.os }}_v${{ env.COMMIT_MESSAGE }}
-          path: dist/ubuntu-22.04/Auto-SQL-Query-to-CSV_SQLAlchemy
+          path: dist/ubuntu-20.04/Auto-SQL-Query-to-CSV_SQLAlchemy
 
       - name: Upload-windows-2019
         if: ${{ matrix.os == 'windows-2019' }}
@@ -119,7 +119,7 @@ jobs:
         build: [linux, windows]
         include:
           - build: linux
-            os: ubuntu-22.04
+            os: ubuntu-20.04
           - build: windows
             os: windows-2019
     steps:
@@ -134,7 +134,7 @@ jobs:
       - name: Set commit message
         id: set_commit
         run: |
-          if [ "${{ matrix.os }}" == "ubuntu-22.04" ]; then
+          if [ "${{ matrix.os }}" == "ubuntu-20.04" ]; then
             echo "COMMIT_MESSAGE=$(git log --format=%B -1)" >> $GITHUB_ENV
           elif [ "${{ matrix.os }}" == "windows-2019" ]; then
             commit_message=$(git log --format=%B -1)
@@ -151,12 +151,12 @@ jobs:
         run: |
           pyinstaller --onefile --hidden-import argparse --hidden-import csv --hidden-import sys --strip UTF8-to-ANSI/UTF8-to-ANSI_CSV.py --distpath dist/${{ matrix.os }}
 
-      - name: Upload-ubuntu-22.04
-        if: ${{ matrix.os == 'ubuntu-22.04' }}
+      - name: Upload-ubuntu-20.04
+        if: ${{ matrix.os == 'ubuntu-20.04' }}
         uses: actions/upload-artifact@v3
         with:
           name: build_UTF8-to-ANSI_CSV_${{ matrix.os }}_v${{ env.COMMIT_MESSAGE }}
-          path: dist/ubuntu-22.04/UTF8-to-ANSI_CSV
+          path: dist/ubuntu-20.04/UTF8-to-ANSI_CSV
 
       - name: Upload-windows-2019
         if: ${{ matrix.os == 'windows-2019' }}
@@ -173,7 +173,7 @@ jobs:
         build: [linux, windows]
         include:
           - build: linux
-            os: ubuntu-22.04
+            os: ubuntu-20.04
           - build: windows
             os: windows-2019
     steps:
@@ -188,7 +188,7 @@ jobs:
       - name: Set commit message
         id: set_commit
         run: |
-          if [ "${{ matrix.os }}" == "ubuntu-22.04" ]; then
+          if [ "${{ matrix.os }}" == "ubuntu-20.04" ]; then
             echo "COMMIT_MESSAGE=$(git log --format=%B -1)" >> $GITHUB_ENV
           elif [ "${{ matrix.os }}" == "windows-2019" ]; then
             commit_message=$(git log --format=%B -1)
@@ -204,12 +204,12 @@ jobs:
       - name: Build executable
         run: |
           pyinstaller --onefile --hidden-import argparse --hidden-import pandas --hidden-import pymysql --strip Auto-SQL-Query-to-CSV_UTF8.py --distpath dist/${{ matrix.os }}
-      - name: Upload-ubuntu-22.04
-        if: ${{ matrix.os == 'ubuntu-22.04' }}
+      - name: Upload-ubuntu-20.04
+        if: ${{ matrix.os == 'ubuntu-20.04' }}
         uses: actions/upload-artifact@v3
         with:
           name: build_Auto-SQL-Query-to-CSV_UTF8_${{ matrix.os }}_v${{ env.COMMIT_MESSAGE }}
-          path: dist/ubuntu-22.04/Auto-SQL-Query-to-CSV_UTF8
+          path: dist/ubuntu-20.04/Auto-SQL-Query-to-CSV_UTF8
 
       - name: Upload-windows-2019
         if: ${{ matrix.os == 'windows-2019' }}
@@ -225,7 +225,7 @@ jobs:
         build: [linux, windows]
         include:
           - build: linux
-            os: ubuntu-22.04
+            os: ubuntu-20.04
           - build: windows
             os: windows-2019
     steps:
@@ -240,7 +240,7 @@ jobs:
       - name: Set commit message
         id: set_commit
         run: |
-          if [ "${{ matrix.os }}" == "ubuntu-22.04" ]; then
+          if [ "${{ matrix.os }}" == "ubuntu-20.04" ]; then
             echo "COMMIT_MESSAGE=$(git log --format=%B -1)" >> $GITHUB_ENV
           elif [ "${{ matrix.os }}" == "windows-2019" ]; then
             commit_message=$(git log --format=%B -1)
@@ -256,12 +256,13 @@ jobs:
       - name: Build executable
         run: |
           pyinstaller --onefile --hidden-import argparse --hidden-import pandas --hidden-import pymysql --strip Auto-SQL-Query-to-CSV_ANSI.py --distpath dist/${{ matrix.os }}
-      - name: Upload-ubuntu-22.04
-        if: ${{ matrix.os == 'ubuntu-22.04' }}
+          
+      - name: Upload-ubuntu-20.04
+        if: ${{ matrix.os == 'ubuntu-20.04' }}
         uses: actions/upload-artifact@v3
         with:
           name: build_Auto-SQL-Query-to-CSV_ANSI_${{ matrix.os }}_v${{ env.COMMIT_MESSAGE }}
-          path: dist/ubuntu-22.04/Auto-SQL-Query-to-CSV_ANSI
+          path: dist/ubuntu-20.04/Auto-SQL-Query-to-CSV_ANSI
 
       - name: Upload-windows-2019
         if: ${{ matrix.os == 'windows-2019' }}
