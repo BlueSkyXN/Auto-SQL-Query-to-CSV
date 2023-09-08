@@ -51,6 +51,15 @@ jobs:
         with:
           name: build_Auto-SQL-Query-to-CSV_${{ matrix.os }}_v${{ env.COMMIT_MESSAGE }}
           path: dist/${{ matrix.os }}/Auto-SQL-Query-to-CSV
+        if: ${{ matrix.os == 'ubuntu-20.04' || matrix.os == 'ubuntu-22.04' }}
+
+      - name: Upload-artifact-windows
+        uses: actions/upload-artifact@v3
+        with:
+          name: build_Auto-SQL-Query-to-CSV_windows-2019_v${{ env.COMMIT_MESSAGE }}
+          path: dist/windows-2019/Auto-SQL-Query-to-CSV.exe
+        if: ${{ matrix.os == 'windows-2019' }}
+
 
   build-Auto-SQL-Query-to-CSV_SQLAlchemy:
     runs-on: ${{ matrix.os }}
